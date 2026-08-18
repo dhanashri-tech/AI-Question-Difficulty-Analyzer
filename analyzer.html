@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question Analyzer - EduAI</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+</head>
+
+<body class="dark-theme">
+    <!-- Top Header -->
+    <header class="analyzer-header">
+        <div class="analyzer-header-left">
+            <div class="logo">
+                <div class="logo-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="#3B82F6" />
+                        <path d="M2 17L12 22L22 17" stroke="#3B82F6" stroke-width="2" />
+                        <path d="M2 12L12 17L22 12" stroke="#3B82F6" stroke-width="2" />
+                    </svg>
+                </div>
+                <span class="logo-text">Edu<span class="logo-highlight">Analyzer</span></span>
+            </div>
+        </div>
+        <div class="analyzer-header-right">
+            <button class="icon-btn" title="Help">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
+                    <path
+                        d="M12 16V16.5M12 8C10.3431 8 9 9.34315 9 11H10.5C10.5 10.1716 11.1716 9.5 12 9.5C12.8284 9.5 13.5 10.1716 13.5 11C13.5 12 12 12 12 13.5V14"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                </svg>
+            </button>
+            <button class="icon-btn" title="Settings">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" />
+                    <path
+                        d="M12 2V5M12 19V22M22 12H19M5 12H2M19.07 4.93L17 7M7 17L4.93 19.07M19.07 19.07L17 17M7 7L4.93 4.93"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                </svg>
+            </button>
+            <div class="user-profile">
+                <span class="user-initials">JD</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="analyzer-main">
+        <!-- Left Panel - Question Input -->
+        <div class="analyzer-left">
+            <div class="panel-card">
+                <div class="panel-header">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M9 12H15M9 16H15M17 21H7C5.89543 21 5 20.1046 5 19V5C5 3.89543 5.89543 3 7 3H12.5858C12.851 3 13.1054 3.10536 13.2929 3.29289L18.7071 8.70711C18.8946 8.89464 19 9.149 19 9.41421V19C19 20.1046 18.1046 21 17 21Z"
+                            stroke="#3B82F6" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                    <h2>Question Input</h2>
+                </div>
+
+
+
+                <div class="form-group">
+                    <label for="questionText">QUESTION TEXT</label>
+                    <textarea id="questionText" class="form-textarea" rows="10"
+                        placeholder="Enter your question here...&#10;&#10;Example: Evaluate the impact of the Industrial Revolution on urban development in 19th-century Europe, specifically focusing on the socio-economic shifts within major metropolitan areas."></textarea>
+                </div>
+
+                <div class="upload-section">
+                    <div class="upload-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M7 18C4.79086 18 3 16.2091 3 14C3 11.7909 4.79086 10 7 10C7 6.68629 9.68629 4 13 4C16.3137 4 19 6.68629 19 10H20C21.6569 10 23 11.3431 23 13C23 14.6569 21.6569 16 20 16"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                            <path d="M12 13V21M12 13L9 16M12 13L15 16" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    <button class="btn-upload">Upload PDF/DOC</button>
+                    <button class="btn-link">Recent Questions</button>
+                </div>
+
+                <button id="analyzeBtn" class="btn-analyze">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M13 10V3L4 14H11L11 21L20 10L13 10Z" fill="currentColor" />
+                    </svg>
+                    Analyze Difficulty
+                </button>
+
+                <div class="info-box">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
+                        <path d="M12 16V12M12 8H12.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                    <div>
+                        <strong>How it works</strong>
+                        <p>Our AI model analyzes linguistic complexity, conceptual depth, and required prior knowledge
+                            to determine the precise pedagogical difficulty of your content.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Panel - Analysis Result -->
+        <div class="analyzer-right">
+            <div class="panel-card">
+                <div class="panel-header">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="3" y="3" width="7" height="7" stroke="#3B82F6" stroke-width="2" rx="1" />
+                        <rect x="14" y="3" width="7" height="7" stroke="#3B82F6" stroke-width="2" rx="1" />
+                        <rect x="3" y="14" width="7" height="7" stroke="#3B82F6" stroke-width="2" rx="1" />
+                        <rect x="14" y="14" width="7" height="7" stroke="#3B82F6" stroke-width="2" rx="1" />
+                    </svg>
+                    <h2>Analysis Result</h2>
+                </div>
+
+                <div id="resultContent" class="result-content hidden">
+                    <!-- Circular Progress Score -->
+                    <div class="score-circle-container">
+                        <svg class="score-circle" viewBox="0 0 200 200">
+                            <circle class="score-bg" cx="100" cy="100" r="85" />
+                            <circle class="score-progress" id="scoreProgress" cx="100" cy="100" r="85" />
+                        </svg>
+                        <div class="score-text">
+                            <span id="scoreValue" class="score-value">72</span>
+                            <span class="score-label">SCORE</span>
+                        </div>
+                    </div>
+
+                    <!-- Difficulty Badge -->
+                    <div id="difficultyBadge" class="difficulty-badge badge-medium">
+                        MEDIUM DIFFICULTY
+                    </div>
+
+                    <!-- Complexity Index -->
+                    <div class="complexity-section">
+                        <div class="complexity-header">
+                            <span class="complexity-label">COMPLEXITY INDEX</span>
+                            <span id="complexityText" class="complexity-value">High (72/100)</span>
+                        </div>
+                        <div class="complexity-bar">
+                            <div id="complexityProgress" class="complexity-fill" style="width: 72%"></div>
+                        </div>
+                    </div>
+
+                    <!-- Bloom's Level -->
+                    <div class="bloom-section">
+                        <div class="bloom-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#3B82F6" stroke-width="2" />
+                                <path d="M2 17L12 22L22 17" stroke="#3B82F6" stroke-width="2" />
+                                <path d="M2 12L12 17L22 12" stroke="#3B82F6" stroke-width="2" />
+                            </svg>
+                        </div>
+                        <div class="bloom-content">
+                            <span class="bloom-label">BLOOM'S LEVEL</span>
+                            <span id="bloomLevel" class="bloom-value">Analyze / Evaluate</span>
+                            <span id="bloomDescription" class="bloom-desc">L4</span>
+                        </div>
+                    </div>
+
+                    <!-- AI Confidence -->
+                    <div class="confidence-section">
+                        <div class="confidence-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z"
+                                    stroke="#10B981" stroke-width="2" stroke-linecap="round" />
+                            </svg>
+                        </div>
+                        <div class="confidence-content">
+                            <span class="confidence-label">AI CONFIDENCE</span>
+                            <span id="confidenceValue" class="confidence-value">98.4% Match</span>
+                        </div>
+                        <div class="confidence-indicator">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="12" cy="12" r="10" fill="#10B981" />
+                                <path d="M8 12L11 15L16 9" stroke="white" stroke-width="2" stroke-linecap="round" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Placeholder State -->
+                <div id="placeholderContent" class="placeholder-content">
+                    <div class="placeholder-icon">
+                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 11L12 14L22 4" stroke="#4B5563" stroke-width="2" stroke-linecap="round" />
+                            <path
+                                d="M21 12V19C21 20.1046 20.1046 21 19 21H5C3.89543 21 3 20.1046 3 19V5C3 3.89543 3.89543 3 5 3H16"
+                                stroke="#4B5563" stroke-width="2" />
+                        </svg>
+                    </div>
+                    <p class="placeholder-text">Neutral analysis engine processing...</p>
+                </div>
+
+                <!-- AI Suggestion Box -->
+                <div id="suggestionBox" class="suggestion-box hidden">
+                    <div class="suggestion-header">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M13 10V3L4 14H11L11 21L20 10L13 10Z" fill="currentColor" />
+                        </svg>
+                        <span>AI Suggestion</span>
+                    </div>
+                    <p id="suggestionText" class="suggestion-text">
+                        To reduce difficulty to "Easy", consider removing the requirement for socio-economic focus and
+                        instead ask for a general definition of urbanization.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Difficulty Level Reference -->
+            <div class="difficulty-reference">
+                <div class="ref-item ref-easy">
+                    <div class="ref-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
+                            <path d="M8 13L10 15L16 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                    </div>
+                    <div class="ref-content">
+                        <div class="ref-title">Easy</div>
+                        <div class="ref-desc">Recall & Recognition (0-40)</div>
+                    </div>
+                </div>
+                <div class="ref-item ref-medium">
+                    <div class="ref-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
+                            <path d="M12 8V12L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                    </div>
+                    <div class="ref-content">
+                        <div class="ref-title">Medium</div>
+                        <div class="ref-desc">Application & Analysis (41-75)</div>
+                    </div>
+                </div>
+                <div class="ref-item ref-hard">
+                    <div class="ref-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
+                            <path d="M12 8V12M12 16H12.01" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" />
+                        </svg>
+                    </div>
+                    <div class="ref-content">
+                        <div class="ref-title">Hard</div>
+                        <div class="ref-desc">Synthesis & Evaluation (76-100)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="analyzer-footer">
+        <p>&copy; 2024 AI Difficulty Analyzer Tool. Educational Intelligence v2.4.1</p>
+        <div class="footer-links-small">
+            <a href="#documentation">Documentation</a>
+            <a href="#privacy">Privacy Policy</a>
+            <a href="#feedback">Feedback</a>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>

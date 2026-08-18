@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduAI - Master Exam Quality with AI-Powered Insights</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="#3B82F6"/>
+                        <path d="M2 17L12 22L22 17" stroke="#3B82F6" stroke-width="2"/>
+                        <path d="M2 12L12 17L22 12" stroke="#3B82F6" stroke-width="2"/>
+                    </svg>
+                </div>
+                <span class="logo-text">Edu<span class="logo-highlight">AI</span></span>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link active">Home</a></li>
+                <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#pricing" class="nav-link">Pricing</a></li>
+            </ul>
+            <div class="nav-buttons">
+                <button id="loginBtn" class="btn-text" style="background:none;border:none;cursor:pointer;font-family:inherit;">Login</button>
+                <a href="analyzer.html" class="btn-primary">Get Started</a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-container">
+            <div class="hero-left">
+                <div class="hero-tag">
+                    <span>NEXT-GEN ASSESSMENT TOOL</span>
+                </div>
+                <h1 class="hero-title">
+                    Master Exam Quality with 
+                    <span class="gradient-text">AI-Powered</span> Insights.
+                </h1>
+                <p class="hero-subtitle">
+                    Instantly analyze question difficulty and align assessments with global academic standards.
+                </p>
+                <div class="hero-buttons">
+                    <a href="analyzer.html" class="btn-primary btn-large">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 11L12 14L22 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M21 12V19C21 20.1046 20.1046 21 19 21H5C3.89543 21 3 20.1046 3 19V5C3 3.89543 3.89543 3 5 3H16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        Analyze Question
+                    </a>
+                    <button id="viewDemoBtn" class="btn-outline btn-large" style="background:none;border:none;cursor:pointer;font-family:inherit;">View Demo</button>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-avatars">
+                            <img src="https://i.pravatar.cc/40?img=1" alt="User">
+                            <img src="https://i.pravatar.cc/40?img=2" alt="User">
+                            <img src="https://i.pravatar.cc/40?img=3" alt="User">
+                        </div>
+                        <span>Trusted by 2,000+ educators globally</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-right">
+                <div class="mockup-card">
+                    <div class="mockup-header">
+                        <div class="mockup-dots">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <span class="mockup-title">AI ANALYSIS RESULT</span>
+                    </div>
+                    <div class="mockup-content">
+                        <div class="mockup-metrics">
+                            <div class="metric-item">
+                                <span class="metric-label">COMPLEXITY</span>
+                                <span class="metric-value">8.4<span class="metric-max">/10</span></span>
+                            </div>
+                            <div class="metric-item">
+                                <span class="metric-label">TAXONOMY</span>
+                                <span class="metric-value-text">Analysis</span>
+                            </div>
+                        </div>
+                        <div class="mockup-chart">
+                            <svg viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="chartGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#3B82F6;stop-opacity:0.8" />
+                                        <stop offset="100%" style="stop-color:#3B82F6;stop-opacity:0.1" />
+                                    </linearGradient>
+                                </defs>
+                                <!-- Chart bars -->
+                                <rect x="20" y="80" width="25" height="30" fill="url(#chartGradient)" rx="4"/>
+                                <rect x="60" y="60" width="25" height="50" fill="url(#chartGradient)" rx="4"/>
+                                <rect x="100" y="40" width="25" height="70" fill="url(#chartGradient)" rx="4"/>
+                                <rect x="140" y="20" width="25" height="90" fill="url(#chartGradient)" rx="4"/>
+                                <!-- Axes -->
+                                <line x1="15" y1="110" x2="180" y2="110" stroke="#4B5563" stroke-width="2"/>
+                                <line x1="15" y1="15" x2="15" y2="110" stroke="#4B5563" stroke-width="2"/>
+                                <!-- Arrow -->
+                                <polygon points="15,10 12,18 18,18" fill="#4B5563"/>
+                                <polygon points="185,110 177,107 177,113" fill="#4B5563"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Powerful Analysis for Better Education</h2>
+                <p class="section-subtitle">Our AI-driven tools help you create better assessments, aligned with global academic standards.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 11L12 14L22 4" stroke="#3B82F6" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M21 12V19C21 20.1046 20.1046 21 19 21H5C3.89543 21 3 20.1046 3 19V5C3 3.89543 3.89543 3 5 3H16" stroke="#3B82F6" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Difficulty Score</h3>
+                    <p class="feature-description">Accurately assess complexity using our patent-pending AI algorithm that analyzes linguistic patterns and cognitive load.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#3B82F6" stroke-width="2"/>
+                            <path d="M2 17L12 22L22 17" stroke="#3B82F6" stroke-width="2"/>
+                            <path d="M2 12L12 17L22 12" stroke="#3B82F6" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Bloom's Taxonomy Detection</h3>
+                    <p class="feature-description">Automatically categorize questions into Bloom's cognitive levels—from Remember to Create—ensuring balanced assessments.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="3" y="3" width="7" height="7" stroke="#3B82F6" stroke-width="2" rx="1"/>
+                            <rect x="14" y="3" width="7" height="7" stroke="#3B82F6" stroke-width="2" rx="1"/>
+                            <rect x="3" y="14" width="7" height="7" stroke="#3B82F6" stroke-width="2" rx="1"/>
+                            <rect x="14" y="14" width="7" height="7" stroke="#3B82F6" stroke-width="2" rx="1"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Analytics Dashboard</h3>
+                    <p class="feature-description">Visualize trends, track difficulty distribution, and gain actionable insights to improve your curriculum over time.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-card">
+                <div class="cta-left">
+                    <h2 class="cta-title">Ready to transform your assessment workflow?</h2>
+                    <p class="cta-subtitle">Join thousands of educators using AI to create better, fairer assessments.</p>
+                    <div class="cta-buttons">
+                        <a href="analyzer.html" class="btn-primary btn-large">Start Free Trial</a>
+                        <a href="#contact" class="btn-outline-white btn-large">Contact Sales</a>
+                    </div>
+                </div>
+                <div class="cta-right">
+                    <div class="testimonial-card">
+                        <div class="testimonial-stars">
+                            ⭐⭐⭐⭐⭐
+                        </div>
+                        <p class="testimonial-text">"The AI Difficulty Analyzer has transformed our assessment creation process. We've seen a 35% improvement in student outcomes!"</p>
+                        <div class="testimonial-author">
+                            <img src="https://i.pravatar.cc/50?img=5" alt="Sarah Jenkins">
+                            <div>
+                                <div class="author-name">Dr. Sarah Jenkins</div>
+                                <div class="author-role">Head of Curriculum, Stanford Prep</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo">
+                        <div class="logo-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="#3B82F6"/>
+                                <path d="M2 17L12 22L22 17" stroke="#3B82F6" stroke-width="2"/>
+                                <path d="M2 12L12 17L22 12" stroke="#3B82F6" stroke-width="2"/>
+                            </svg>
+                        </div>
+                        <span class="logo-text">Edu<span class="logo-highlight">AI</span></span>
+                    </div>
+                    <p class="footer-description">Intelligently assess question difficulty and align with global academic standards.</p>
+                </div>
+                <div class="footer-column">
+                    <h4 class="footer-heading">Product</h4>
+                    <ul class="footer-links">
+                        <li><a href="analyzer.html">Analyzer</a></li>
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#enterprise">Enterprise</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4 class="footer-heading">Resources</h4>
+                    <ul class="footer-links">
+                        <li><a href="#documentation">Documentation</a></li>
+                        <li><a href="#guides">Guides</a></li>
+                        <li><a href="#api">API Reference</a></li>
+                        <li><a href="#support">Support</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4 class="footer-heading">Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="#privacy">Privacy Policy</a></li>
+                        <li><a href="#terms">Terms of Service</a></li>
+                        <li><a href="#gdpr">GDPR Compliance</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 EduAI - AI Difficulty Analyzer Tool. All rights reserved.</p>
+                <div class="footer-social">
+                    <a href="#" aria-label="Twitter">𝕏</a>
+                    <a href="#" aria-label="LinkedIn">in</a>
+                    <a href="#" aria-label="GitHub">GitHub</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="loginModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.65);z-index:99999;backdrop-filter:blur(6px);align-items:center;justify-content:center;">
+        <div style="background:#0F172A;border:1px solid #334155;border-radius:18px;width:420px;max-width:95vw;padding:40px 36px;box-shadow:0 30px 80px rgba(0,0,0,0.6);font-family:'Inter',sans-serif;position:relative;">
+            <button id="closeLoginModal" style="position:absolute;top:16px;right:18px;background:none;border:none;color:#64748B;font-size:22px;cursor:pointer;line-height:1;">&times;</button>
+            <div style="text-align:center;margin-bottom:28px;">
+                <div style="width:52px;height:52px;background:linear-gradient(135deg,#3B82F6,#6366F1);border-radius:14px;display:inline-flex;align-items:center;justify-content:center;margin-bottom:14px;">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="white" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="7" r="4" stroke="white" stroke-width="2"/></svg>
+                </div>
+                <h2 style="color:#F1F5F9;font-size:22px;font-weight:700;margin:0 0 6px;">Welcome back</h2>
+                <p style="color:#64748B;font-size:14px;margin:0;">Sign in to your EduAI account</p>
+            </div>
+            <form id="loginForm" style="display:flex;flex-direction:column;gap:18px;">
+                <div>
+                    <label style="display:block;font-size:12px;font-weight:600;color:#94A3B8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;">Email</label>
+                    <input id="loginEmail" type="email" placeholder="you@example.com" required style="width:100%;padding:12px 14px;background:#1E293B;border:1px solid #334155;border-radius:10px;color:#F1F5F9;font-size:14px;outline:none;box-sizing:border-box;transition:border-color .2s;">
+                </div>
+                <div>
+                    <label style="display:block;font-size:12px;font-weight:600;color:#94A3B8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;">Password</label>
+                    <input id="loginPassword" type="password" placeholder="••••••••" required style="width:100%;padding:12px 14px;background:#1E293B;border:1px solid #334155;border-radius:10px;color:#F1F5F9;font-size:14px;outline:none;box-sizing:border-box;transition:border-color .2s;">
+                </div>
+                <button type="submit" style="background:linear-gradient(135deg,#3B82F6,#6366F1);color:white;border:none;border-radius:10px;padding:14px;font-size:15px;font-weight:600;cursor:pointer;transition:opacity .2s;">Sign In &rarr;</button>
+                <p style="text-align:center;color:#64748B;font-size:13px;margin:0;">Don't have an account? <a href="analyzer.html" style="color:#3B82F6;text-decoration:none;font-weight:600;">Get Started Free</a></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Demo Modal -->
+    <div id="demoModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.70);z-index:99999;backdrop-filter:blur(6px);align-items:center;justify-content:center;">
+        <div style="background:#0F172A;border:1px solid #334155;border-radius:18px;width:680px;max-width:95vw;max-height:90vh;overflow-y:auto;padding:36px;box-shadow:0 30px 80px rgba(0,0,0,0.6);font-family:'Inter',sans-serif;position:relative;">
+            <button id="closeDemoModal" style="position:absolute;top:16px;right:18px;background:none;border:none;color:#64748B;font-size:22px;cursor:pointer;line-height:1;">&times;</button>
+            <div style="text-align:center;margin-bottom:28px;">
+                <div style="display:inline-block;padding:6px 14px;background:rgba(59,130,246,.15);border:1px solid rgba(59,130,246,.3);border-radius:30px;color:#60A5FA;font-size:12px;font-weight:600;letter-spacing:.05em;margin-bottom:14px;">LIVE DEMO</div>
+                <h2 style="color:#F1F5F9;font-size:22px;font-weight:700;margin:0 0 8px;">See EduAI in Action</h2>
+                <p style="color:#64748B;font-size:14px;margin:0;">Click "Run Demo" to watch the AI analyze a sample question in real time.</p>
+            </div>
+            <div style="background:#1E293B;border:1px solid #334155;border-radius:14px;padding:20px;margin-bottom:20px;">
+                <div style="font-size:12px;font-weight:600;color:#64748B;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px;">Sample Question</div>
+                <p id="demoQuestion" style="color:#CBD5E1;font-size:14px;line-height:1.7;margin:0;">
+                    Analyze the causes and long-term consequences of the French Revolution on European political structures.
+                </p>
+            </div>
+            <button id="runDemoBtn" style="width:100%;background:linear-gradient(135deg,#3B82F6,#6366F1);color:white;border:none;border-radius:10px;padding:14px;font-size:15px;font-weight:600;cursor:pointer;margin-bottom:20px;transition:opacity .2s;">&#9889; Run Demo Analysis</button>
+            <div id="demoResult" style="display:none;">
+                <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:16px;">
+                    <div style="background:#1E293B;border:1px solid #334155;border-radius:12px;padding:16px;text-align:center;">
+                        <div style="font-size:11px;color:#64748B;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;">Score</div>
+                        <div id="demoScore" style="font-size:28px;font-weight:800;color:#3B82F6;">--</div>
+                        <div style="font-size:11px;color:#64748B;">/100</div>
+                    </div>
+                    <div style="background:#1E293B;border:1px solid #334155;border-radius:12px;padding:16px;text-align:center;">
+                        <div style="font-size:11px;color:#64748B;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;">Difficulty</div>
+                        <div id="demoDifficulty" style="font-size:16px;font-weight:700;color:#F59E0B;">--</div>
+                    </div>
+                    <div style="background:#1E293B;border:1px solid #334155;border-radius:12px;padding:16px;text-align:center;">
+                        <div style="font-size:11px;color:#64748B;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;">Bloom's</div>
+                        <div id="demoBlooms" style="font-size:13px;font-weight:700;color:#A78BFA;">--</div>
+                    </div>
+                </div>
+                <div style="background:#1E293B;border:1px solid #334155;border-radius:12px;padding:16px;">
+                    <div style="font-size:12px;font-weight:600;color:#64748B;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;">AI Suggestion</div>
+                    <p id="demoSuggestion" style="color:#CBD5E1;font-size:13px;line-height:1.65;margin:0;"></p>
+                </div>
+                <a href="analyzer.html" style="display:block;text-align:center;margin-top:18px;background:rgba(59,130,246,.12);border:1px solid rgba(59,130,246,.3);color:#60A5FA;text-decoration:none;border-radius:10px;padding:13px;font-size:14px;font-weight:600;">Try with Your Own Questions &rarr;</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
