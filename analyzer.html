@@ -1,278 +1,507 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Question Analyzer - EduAI</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+
+    <title>Question Analyzer | EduAI</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+
+    <style>
+        .analyzer-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .analyzer-header {
+            margin-bottom: 30px;
+        }
+
+        .analyzer-header h1 {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        .analyzer-header p {
+            color: #94A3B8;
+        }
+
+        .analyzer-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        .analyzer-card {
+            background: var(--card-bg, #1E293B);
+            border: 1px solid var(--border-color, #334155);
+            border-radius: 14px;
+            padding: 25px;
+        }
+
+        .analyzer-card h2 {
+            font-size: 20px;
+            margin-bottom: 18px;
+        }
+
+        #questionText {
+            width: 100%;
+            min-height: 250px;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #475569;
+            background: #0F172A;
+            color: #F1F5F9;
+            resize: vertical;
+            font-size: 14px;
+            line-height: 1.6;
+            box-sizing: border-box;
+        }
+
+        #questionText:focus {
+            outline: none;
+            border-color: #3B82F6;
+        }
+
+        .analyzer-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 18px;
+            flex-wrap: wrap;
+        }
+
+        .analyzer-actions button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        #analyzeBtn {
+            background: #3B82F6;
+            color: white;
+        }
+
+        #analyzeBtn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .btn-upload {
+            background: #334155;
+            color: white;
+        }
+
+        .result-placeholder {
+            text-align: center;
+            padding: 65px 15px;
+            color: #94A3B8;
+        }
+
+        .result-placeholder .placeholder-icon {
+            font-size: 45px;
+            margin-bottom: 15px;
+        }
+
+        .difficulty-badge {
+            display: inline-block;
+            padding: 9px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            margin: 15px 0;
+        }
+
+        .badge-easy {
+            background: rgba(16,185,129,0.15);
+            color: #10B981;
+        }
+
+        .badge-medium {
+            background: rgba(245,158,11,0.15);
+            color: #F59E0B;
+        }
+
+        .badge-hard {
+            background: rgba(239,68,68,0.15);
+            color: #EF4444;
+        }
+
+        .result-details {
+            margin-top: 20px;
+        }
+
+        .result-item {
+            padding: 15px 0;
+            border-bottom: 1px solid #334155;
+        }
+
+        .result-item span {
+            display: block;
+            color: #94A3B8;
+            font-size: 13px;
+            margin-bottom: 7px;
+        }
+
+        .result-item strong {
+            color: #F1F5F9;
+            font-size: 17px;
+        }
+
+        .progress-track {
+            height: 9px;
+            background: #334155;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: #3B82F6;
+            border-radius: 20px;
+            transition: width 0.5s ease;
+        }
+
+        .suggestion-box {
+            background: rgba(59,130,246,0.10);
+            border: 1px solid rgba(59,130,246,0.3);
+            padding: 16px;
+            border-radius: 10px;
+            margin-top: 22px;
+        }
+
+        .suggestion-box h3 {
+            color: #60A5FA;
+            font-size: 15px;
+            margin-bottom: 8px;
+        }
+
+        .suggestion-box p {
+            color: #CBD5E1;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .upload-info {
+            color: #94A3B8;
+            font-size: 12px;
+            margin-top: 12px;
+        }
+
+        .analyzer-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 5%;
+            background: #0F172A;
+            border-bottom: 1px solid #334155;
+        }
+
+        .analyzer-nav a {
+            color: #CBD5E1;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        .analyzer-nav .brand {
+            color: #60A5FA;
+            font-size: 21px;
+            font-weight: 700;
+        }
+
+        @media (max-width: 768px) {
+            .analyzer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .analyzer-container {
+                margin: 20px auto;
+                padding: 12px;
+            }
+
+            .analyzer-nav {
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+        }
+    </style>
 </head>
 
-<body class="dark-theme">
-    <!-- Top Header -->
-    <header class="analyzer-header">
-        <div class="analyzer-header-left">
-            <div class="logo">
-                <div class="logo-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="#3B82F6" />
-                        <path d="M2 17L12 22L22 17" stroke="#3B82F6" stroke-width="2" />
-                        <path d="M2 12L12 17L22 12" stroke="#3B82F6" stroke-width="2" />
-                    </svg>
-                </div>
-                <span class="logo-text">Edu<span class="logo-highlight">Analyzer</span></span>
-            </div>
+<body>
+
+    <!-- NAVIGATION -->
+    <nav class="analyzer-nav">
+        <div class="brand">EduAI</div>
+
+        <div>
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('dashboard') }}">Dashboard</a>
         </div>
-        <div class="analyzer-header-right">
-            <button class="icon-btn" title="Help">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
-                    <path
-                        d="M12 16V16.5M12 8C10.3431 8 9 9.34315 9 11H10.5C10.5 10.1716 11.1716 9.5 12 9.5C12.8284 9.5 13.5 10.1716 13.5 11C13.5 12 12 12 12 13.5V14"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-                </svg>
-            </button>
-            <button class="icon-btn" title="Settings">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" />
-                    <path
-                        d="M12 2V5M12 19V22M22 12H19M5 12H2M19.07 4.93L17 7M7 17L4.93 19.07M19.07 19.07L17 17M7 7L4.93 4.93"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-                </svg>
-            </button>
-            <div class="user-profile">
-                <span class="user-initials">JD</span>
-            </div>
-        </div>
-    </header>
-
-    <!-- Main Content -->
-    <main class="analyzer-main">
-        <!-- Left Panel - Question Input -->
-        <div class="analyzer-left">
-            <div class="panel-card">
-                <div class="panel-header">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M9 12H15M9 16H15M17 21H7C5.89543 21 5 20.1046 5 19V5C5 3.89543 5.89543 3 7 3H12.5858C12.851 3 13.1054 3.10536 13.2929 3.29289L18.7071 8.70711C18.8946 8.89464 19 9.149 19 9.41421V19C19 20.1046 18.1046 21 17 21Z"
-                            stroke="#3B82F6" stroke-width="2" stroke-linecap="round" />
-                    </svg>
-                    <h2>Question Input</h2>
-                </div>
+    </nav>
 
 
+    <!-- MAIN CONTAINER -->
+    <main class="analyzer-container">
 
-                <div class="form-group">
-                    <label for="questionText">QUESTION TEXT</label>
-                    <textarea id="questionText" class="form-textarea" rows="10"
-                        placeholder="Enter your question here...&#10;&#10;Example: Evaluate the impact of the Industrial Revolution on urban development in 19th-century Europe, specifically focusing on the socio-economic shifts within major metropolitan areas."></textarea>
-                </div>
-
-                <div class="upload-section">
-                    <div class="upload-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M7 18C4.79086 18 3 16.2091 3 14C3 11.7909 4.79086 10 7 10C7 6.68629 9.68629 4 13 4C16.3137 4 19 6.68629 19 10H20C21.6569 10 23 11.3431 23 13C23 14.6569 21.6569 16 20 16"
-                                stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-                            <path d="M12 13V21M12 13L9 16M12 13L15 16" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                    </div>
-                    <button class="btn-upload">Upload PDF/DOC</button>
-                    <button class="btn-link">Recent Questions</button>
-                </div>
-
-                <button id="analyzeBtn" class="btn-analyze">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M13 10V3L4 14H11L11 21L20 10L13 10Z" fill="currentColor" />
-                    </svg>
-                    Analyze Difficulty
-                </button>
-
-                <div class="info-box">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
-                        <path d="M12 16V12M12 8H12.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-                    </svg>
-                    <div>
-                        <strong>How it works</strong>
-                        <p>Our AI model analyzes linguistic complexity, conceptual depth, and required prior knowledge
-                            to determine the precise pedagogical difficulty of your content.</p>
-                    </div>
-                </div>
-            </div>
+        <div class="analyzer-header">
+            <h1>AI Question Difficulty Analyzer</h1>
+            <p>
+                Analyze your questions using a trained Machine Learning model.
+            </p>
         </div>
 
-        <!-- Right Panel - Analysis Result -->
-        <div class="analyzer-right">
-            <div class="panel-card">
-                <div class="panel-header">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="3" y="3" width="7" height="7" stroke="#3B82F6" stroke-width="2" rx="1" />
-                        <rect x="14" y="3" width="7" height="7" stroke="#3B82F6" stroke-width="2" rx="1" />
-                        <rect x="3" y="14" width="7" height="7" stroke="#3B82F6" stroke-width="2" rx="1" />
-                        <rect x="14" y="14" width="7" height="7" stroke="#3B82F6" stroke-width="2" rx="1" />
-                    </svg>
-                    <h2>Analysis Result</h2>
+
+        <div class="analyzer-grid">
+
+            <!-- QUESTION INPUT -->
+            <section class="analyzer-card">
+
+                <h2>Enter Your Question</h2>
+
+                <textarea
+                    id="questionText"
+                    placeholder="Enter your question here..."
+                ></textarea>
+
+                <div class="analyzer-actions">
+
+                    <button type="button" id="analyzeBtn">
+                        Analyze Difficulty
+                    </button>
+
+                    <button type="button" class="btn-upload">
+                        Upload PDF
+                    </button>
+
                 </div>
 
-                <div id="resultContent" class="result-content hidden">
-                    <!-- Circular Progress Score -->
-                    <div class="score-circle-container">
-                        <svg class="score-circle" viewBox="0 0 200 200">
-                            <circle class="score-bg" cx="100" cy="100" r="85" />
-                            <circle class="score-progress" id="scoreProgress" cx="100" cy="100" r="85" />
-                        </svg>
-                        <div class="score-text">
-                            <span id="scoreValue" class="score-value">72</span>
-                            <span class="score-label">SCORE</span>
-                        </div>
-                    </div>
+                <p class="upload-info">
+                    Enter a question manually or upload a text-based PDF.
+                </p>
 
-                    <!-- Difficulty Badge -->
-                    <div id="difficultyBadge" class="difficulty-badge badge-medium">
-                        MEDIUM DIFFICULTY
-                    </div>
+                <input
+                    type="file"
+                    id="fileInput"
+                    accept=".pdf,application/pdf"
+                    hidden
+                />
 
-                    <!-- Complexity Index -->
-                    <div class="complexity-section">
-                        <div class="complexity-header">
-                            <span class="complexity-label">COMPLEXITY INDEX</span>
-                            <span id="complexityText" class="complexity-value">High (72/100)</span>
-                        </div>
-                        <div class="complexity-bar">
-                            <div id="complexityProgress" class="complexity-fill" style="width: 72%"></div>
-                        </div>
-                    </div>
+            </section>
 
-                    <!-- Bloom's Level -->
-                    <div class="bloom-section">
-                        <div class="bloom-icon">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#3B82F6" stroke-width="2" />
-                                <path d="M2 17L12 22L22 17" stroke="#3B82F6" stroke-width="2" />
-                                <path d="M2 12L12 17L22 12" stroke="#3B82F6" stroke-width="2" />
-                            </svg>
-                        </div>
-                        <div class="bloom-content">
-                            <span class="bloom-label">BLOOM'S LEVEL</span>
-                            <span id="bloomLevel" class="bloom-value">Analyze / Evaluate</span>
-                            <span id="bloomDescription" class="bloom-desc">L4</span>
-                        </div>
-                    </div>
 
-                    <!-- AI Confidence -->
-                    <div class="confidence-section">
-                        <div class="confidence-icon">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z"
-                                    stroke="#10B981" stroke-width="2" stroke-linecap="round" />
-                            </svg>
-                        </div>
-                        <div class="confidence-content">
-                            <span class="confidence-label">AI CONFIDENCE</span>
-                            <span id="confidenceValue" class="confidence-value">98.4% Match</span>
-                        </div>
-                        <div class="confidence-indicator">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="12" cy="12" r="10" fill="#10B981" />
-                                <path d="M8 12L11 15L16 9" stroke="white" stroke-width="2" stroke-linecap="round" />
-                            </svg>
-                        </div>
-                    </div>
-                </div>
+            <!-- RESULT SECTION -->
+            <section class="analyzer-card">
 
-                <!-- Placeholder State -->
-                <div id="placeholderContent" class="placeholder-content">
-                    <div class="placeholder-icon">
-                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M9 11L12 14L22 4" stroke="#4B5563" stroke-width="2" stroke-linecap="round" />
-                            <path
-                                d="M21 12V19C21 20.1046 20.1046 21 19 21H5C3.89543 21 3 20.1046 3 19V5C3 3.89543 3.89543 3 5 3H16"
-                                stroke="#4B5563" stroke-width="2" />
-                        </svg>
-                    </div>
-                    <p class="placeholder-text">Neutral analysis engine processing...</p>
-                </div>
+                <h2>Analysis Result</h2>
 
-                <!-- AI Suggestion Box -->
-                <div id="suggestionBox" class="suggestion-box hidden">
-                    <div class="suggestion-header">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M13 10V3L4 14H11L11 21L20 10L13 10Z" fill="currentColor" />
-                        </svg>
-                        <span>AI Suggestion</span>
-                    </div>
-                    <p id="suggestionText" class="suggestion-text">
-                        To reduce difficulty to "Easy", consider removing the requirement for socio-economic focus and
-                        instead ask for a general definition of urbanization.
+                <!-- PLACEHOLDER -->
+                <div id="placeholderContent" class="result-placeholder">
+
+                    <div class="placeholder-icon">📊</div>
+
+                    <h3>Ready to Analyze</h3>
+
+                    <p>
+                        Enter a question and click Analyze Difficulty
+                        to see the prediction.
                     </p>
-                </div>
-            </div>
 
-            <!-- Difficulty Level Reference -->
-            <div class="difficulty-reference">
-                <div class="ref-item ref-easy">
-                    <div class="ref-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
-                            <path d="M8 13L10 15L16 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-                        </svg>
-                    </div>
-                    <div class="ref-content">
-                        <div class="ref-title">Easy</div>
-                        <div class="ref-desc">Recall & Recognition (0-40)</div>
-                    </div>
                 </div>
-                <div class="ref-item ref-medium">
-                    <div class="ref-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
-                            <path d="M12 8V12L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-                        </svg>
+
+
+                <!-- RESULT -->
+                <div id="resultContent" class="hidden">
+
+                    <div>
+                        <span style="color:#94A3B8;">
+                            Predicted Difficulty
+                        </span>
+
+                        <br>
+
+                        <span
+                            id="difficultyBadge"
+                            class="difficulty-badge"
+                        >
+                            MEDIUM DIFFICULTY
+                        </span>
                     </div>
-                    <div class="ref-content">
-                        <div class="ref-title">Medium</div>
-                        <div class="ref-desc">Application & Analysis (41-75)</div>
+
+
+                    <div class="result-details">
+
+                        <div class="result-item">
+                            <span>Model Confidence</span>
+
+                            <strong id="confidenceValue">
+                                0% Confidence
+                            </strong>
+
+                            <div class="progress-track">
+                                <div
+                                    id="complexityProgress"
+                                    class="progress-fill"
+                                ></div>
+                            </div>
+                        </div>
+
+
+                        <div class="result-item">
+                            <span>Predicted Difficulty Level</span>
+
+                            <strong id="complexityText">
+                                Not analyzed
+                            </strong>
+                        </div>
+
+
+                        <div class="result-item">
+                            <span>Bloom's Taxonomy</span>
+
+                            <strong id="bloomLevel">
+                                Not predicted
+                            </strong>
+
+                            <span id="bloomDescription">
+                                Not available from current ML model
+                            </span>
+                        </div>
+
                     </div>
+
+
+                    <!-- SUGGESTION -->
+                    <div id="suggestionBox" class="suggestion-box hidden">
+
+                        <h3>💡 AI Suggestion</h3>
+
+                        <p id="suggestionText">
+                            Your suggestion will appear here.
+                        </p>
+
+                    </div>
+
                 </div>
-                <div class="ref-item ref-hard">
-                    <div class="ref-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
-                            <path d="M12 8V12M12 16H12.01" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" />
-                        </svg>
-                    </div>
-                    <div class="ref-content">
-                        <div class="ref-title">Hard</div>
-                        <div class="ref-desc">Synthesis & Evaluation (76-100)</div>
-                    </div>
-                </div>
-            </div>
+
+            </section>
+
         </div>
+
     </main>
 
-    <!-- Footer -->
-    <footer class="analyzer-footer">
-        <p>&copy; 2024 AI Difficulty Analyzer Tool. Educational Intelligence v2.4.1</p>
-        <div class="footer-links-small">
-            <a href="#documentation">Documentation</a>
-            <a href="#privacy">Privacy Policy</a>
-            <a href="#feedback">Feedback</a>
-        </div>
-    </footer>
 
-    <script src="js/script.js"></script>
+    <!-- PDF EXTRACTION AND FILE UPLOAD -->
+    <script>
+        const uploadButton =
+            document.querySelector('.btn-upload');
+
+        const pdfFileInput =
+            document.getElementById('fileInput');
+
+        const questionTextarea =
+            document.getElementById('questionText');
+
+        if (uploadButton && pdfFileInput && questionTextarea) {
+
+            pdfjsLib.GlobalWorkerOptions.workerSrc =
+                'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
+
+            uploadButton.addEventListener('click', function () {
+                pdfFileInput.click();
+            });
+
+            pdfFileInput.addEventListener('change', async function () {
+
+                const file = this.files[0];
+
+                if (!file) return;
+
+                if (!file.name.toLowerCase().endsWith('.pdf')) {
+                    alert('Please upload a PDF file.');
+                    this.value = '';
+                    return;
+                }
+
+                const originalText = uploadButton.textContent;
+
+                uploadButton.disabled = true;
+                uploadButton.textContent = 'Extracting...';
+
+                try {
+
+                    const buffer = await file.arrayBuffer();
+
+                    const pdf = await pdfjsLib.getDocument({
+                        data: buffer
+                    }).promise;
+
+                    let extractedText = '';
+
+                    for (let pageNumber = 1;
+                         pageNumber <= pdf.numPages;
+                         pageNumber++) {
+
+                        const page = await pdf.getPage(pageNumber);
+
+                        const content = await page.getTextContent();
+
+                        extractedText += content.items
+                            .map(item => item.str)
+                            .join(' ') + '\n';
+                    }
+
+                    if (!extractedText.trim()) {
+                        throw new Error(
+                            'No readable text found in this PDF.'
+                        );
+                    }
+
+                    questionTextarea.value = extractedText.trim();
+
+                    alert(
+                        'PDF text extracted successfully! ' +
+                        'Click Analyze Difficulty to analyze it.'
+                    );
+
+                } catch (error) {
+
+                    console.error('PDF extraction error:', error);
+
+                    alert(
+                        error.message ||
+                        'Unable to extract text from PDF.'
+                    );
+
+                } finally {
+
+                    uploadButton.disabled = false;
+                    uploadButton.textContent = originalText;
+                    pdfFileInput.value = '';
+
+                }
+
+            });
+
+        }
+    </script>
+
+
+    <!-- EXISTING PROJECT JAVASCRIPT -->
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
 </body>
-
 </html>
